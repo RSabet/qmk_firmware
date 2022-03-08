@@ -473,7 +473,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 
-const key_override_t ctrl_a = ko_make_basic(MOD_MASK_CTRL, KC_U, C(KC_A));
+// const key_override_t ctrl_a = ko_make_basic(MOD_MASK_CTRL, KC_U, C(KC_A));
 const key_override_t ctrl_c = ko_make_basic(MOD_MASK_CTRL, DE_ADIA, C(KC_C));
 const key_override_t ctrl_p = ko_make_basic(MOD_MASK_CTRL, KC_P, C(KC_V));
 const key_override_t ctrl_x = ko_make_basic(MOD_MASK_CTRL, DE_ODIA, C(KC_X));
@@ -483,7 +483,6 @@ const key_override_t dn_key_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &ctrl_a,
     &ctrl_c,
     &ctrl_p,
     &ctrl_x,
