@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(_F_KEYS,KC_TAB),    KC_X,           KC_V,           KC_L,           KC_C,                 KC_W,           KC_K ,           KC_H,           KC_G,           KC_F,           KC_Q,           KC_BSPACE,
     LT(_SYMBOLS_R,KC_ESCAPE), KC_U,           KC_I,           KC_A,           KC_E,                 KC_O,           KC_S,           KC_N,           KC_R,           KC_T,           KC_D,           LT(_SYMBOLS_L,DE_Y),
     KC_LSHIFT,       DE_UDIA,        DE_ODIA,        DE_ADIA,        KC_P,                 DE_Z,           KC_B,           KC_M,           KC_COMMA,       KC_DOT,         KC_J,           MT(MOD_RSFT, DE_SS),
-    KC_LCTRL,        TG(_QWERTZ),          KC_LALT,        KC_RGUI,        LT(_LOWER, KC_ENTER), LT(_NAVNUM,KC_SPACE), KC_NO,          LT(_RAISE, KC_ENTER),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
+    KC_LCTRL,        TG(_QWERTZ),          KC_LALT,        KC_RGUI,        LT(_LOWER, KC_BACKSPACE), LT(_NAVNUM,KC_SPACE), KC_NO,          LT(_RAISE, KC_ENTER),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
   ),
 
   [_LOWER] = LAYOUT_planck_grid(
@@ -474,10 +474,18 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 // const key_override_t ctrl_a = ko_make_basic(MOD_MASK_CTRL, KC_U, C(KC_A));
-const key_override_t ctrl_c = ko_make_basic(MOD_MASK_CTRL, DE_ADIA, C(KC_C));
-const key_override_t ctrl_p = ko_make_basic(MOD_MASK_CTRL, KC_P, C(KC_V));
-const key_override_t ctrl_x = ko_make_basic(MOD_MASK_CTRL, DE_ODIA, C(KC_X));
-const key_override_t ctrl_z = ko_make_basic(MOD_MASK_CTRL, DE_UDIA, C(KC_Z));
+// const key_override_t ctrl_c = ko_make_basic(MOD_MASK_CTRL, DE_ADIA, C(KC_C));
+// const key_override_t ctrl_x = ko_make_basic(MOD_MASK_CTRL, DE_ODIA, C(KC_X));
+// const key_override_t ctrl_z = ko_make_basic(MOD_MASK_CTRL, DE_UDIA, C(KC_Z));
+const key_override_t ctrl_c = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, DE_ADIA,
+											C(KC_C), ~0, MOD_MASK_SA, ko_option_no_reregister_trigger);
+const key_override_t ctrl_p = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, KC_P,
+											C(KC_V), ~0, MOD_MASK_SA, ko_option_no_reregister_trigger);
+const key_override_t ctrl_x = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, DE_ODIA,
+											C(KC_X), ~0, MOD_MASK_SA, ko_option_no_reregister_trigger);
+const key_override_t ctrl_z = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, DE_UDIA,
+											C(KC_Z), ~0, MOD_MASK_SA, ko_option_no_reregister_trigger);
+
 const key_override_t up_key_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_PGUP);
 const key_override_t dn_key_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_PGDN);
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
