@@ -34,7 +34,8 @@ enum custom_keycodes {
   PLY_IMP,
   PLY_BLD,
   LAYER_QWERTZ,
-  LAYER_BASE
+  LAYER_BASE,
+  DO_RESET
 };
 
 
@@ -59,16 +60,20 @@ enum tap_dance_codes {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+
+#ifndef KC_BSPACE
+#define KC_BSPACE KC_BACKSPACE
+#endif
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_planck_grid(
   //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
   //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
-    LT(_F_KEYS,KC_TAB),    KC_X,           KC_V,           KC_L,           KC_C,                 KC_W,           KC_K ,           KC_H,           KC_G,           KC_F,           KC_Q,           KC_BSPACE,
+    LT(_F_KEYS,KC_TAB),    KC_X,           KC_V,           KC_L,           KC_C,                 KC_W,           KC_K ,           KC_H,           KC_G,           KC_F,           KC_Q,           KC_BACKSPACE,
     LT(_SYMBOLS_R,KC_ESCAPE), KC_U,           KC_I,           KC_A,           KC_E,                 KC_O,           KC_S,           KC_N,           KC_R,           KC_T,           KC_D,           LT(_SYMBOLS_L,DE_Y),
-    KC_LSHIFT,       DE_UDIA,        DE_ODIA,        DE_ADIA,        KC_P,                 DE_Z,           KC_B,           KC_M,           KC_COMMA,       KC_DOT,         KC_J,           MT(MOD_RSFT, DE_SS),
-    KC_LCTRL,        TG(_QWERTZ),          KC_LALT,        KC_RGUI,        LT(_LOWER, KC_BACKSPACE), LT(_NAVNUM,KC_SPACE), KC_NO,          LT(_RAISE, KC_ENTER),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
+    KC_LSFT,       DE_UDIA,        DE_ODIA,        DE_ADIA,        KC_P,                 DE_Z,           KC_B,           KC_M,           KC_COMMA,       KC_DOT,         KC_J,           MT(MOD_RSFT, DE_SS),
+    KC_LCTL,        TG(_QWERTZ),          KC_LALT,        KC_RGUI,        LT(_LOWER, KC_BACKSPACE), LT(_NAVNUM,KC_SPACE), KC_NO,          LT(_RAISE, KC_ENTER),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
   ),
 
   [_LOWER] = LAYOUT_planck_grid(
@@ -80,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_planck_grid(
     //┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐ ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-        AUD_UP  , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,   KC_HOME, KC_PGDOWN, KC_PGUP , KC_END  , KC_NO   , _______ ,
+        AUD_UP  , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,   KC_HOME, KC_PGDN,   KC_PGUP , KC_END  , KC_NO   , _______ ,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
         AUD_MUT , KC_NO   , KC_NO   , KC_NO   , _______ , KC_NO   ,   KC_LEFT, KC_DOWN  , KC_UP   , KC_RIGHT, KC_NO   , KC_ENTER,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
@@ -98,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
         _______ , _______ , MU_ON   , MU_OFF  ,  MU_TOG , _______ ,   _______ , RGB_MOD , RGB_HUI , RGB_HUD , _______ , _______ ,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-        WEB_PAI , RESET   , _______ , _______ , _______ , _______ ,   KC_NO   , _______ , _______ , _______ , _______ , _______
+        WEB_PAI , DO_RESET, _______ , _______ , _______ , _______ ,   KC_NO   , _______ , _______ , _______ , _______ , _______
     //└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘ └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
   ),
 
@@ -130,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐ ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
         _______ , KC_HOME , KC_DEL  , KC_UP   ,KC_BSPACE, KC_PGUP ,   DE_SLSH , KC_7    , KC_8    , KC_9    , DE_MINS , KC_DEL  ,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-        _______ , KC_END  , KC_LEFT , KC_DOWN , KC_RIGHT,KC_PGDOWN,   DE_ASTR , KC_4    , KC_5    , KC_6    , DE_PLUS , DE_COLN ,
+        _______ , KC_END  , KC_LEFT , KC_DOWN , KC_RIGHT,KC_PGDN,     DE_ASTR , KC_4    , KC_5    , KC_6    , DE_PLUS , DE_COLN ,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
         _______ , _______ ,KC_PC_CUT,KC_PC_COPY, KC_PC_PASTE, S(DE_CIRC) , KC_0,       KC_1,     KC_2,    KC_3,    KC_COMMA, KC_DOT,
     //├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤ ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
@@ -179,7 +184,7 @@ void keyboard_post_init_user(void) {
 #define NUMBE {18, 209, 55}
 #define SYMBO {212, 173, 255}
 #define YELLO {255, 255, 10}
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [_LOWER] = {
         //┌───────┬───────┬───────┬───────┬───────┬───────┐ ┌───────┬───────┬───────┬───────┬───────┬───────┐
             BLACK , BLACK , BLACK , BLACK , BLACK , BLACK ,   CYAN1 , CYAN1 , CYAN1 , CYAN1 , BLACK , AUDIO ,
@@ -279,7 +284,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 };
 
 void set_layer_color(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     uint8_t r = pgm_read_byte(&ledmap[layer][i][0]);
     uint8_t g = pgm_read_byte(&ledmap[layer][i][1]);
     uint8_t b = pgm_read_byte(&ledmap[layer][i][2]);
@@ -289,7 +294,7 @@ void set_layer_color(int layer) {
 
 
 void set_layer_color_hsv(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     HSV hsv = {
       .h = pgm_read_byte(&ledmap[layer][i][0]),
       .s = pgm_read_byte(&ledmap[layer][i][1]),
@@ -305,9 +310,9 @@ void set_layer_color_hsv(int layer) {
   }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 //   if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
-  if (keyboard_config.disable_layer_led) { return; }
+  if (keyboard_config.disable_layer_led) { return true; }
   switch (biton32(layer_state)) {
     case 1:
       set_layer_color(1);
@@ -338,6 +343,7 @@ void rgb_matrix_indicators_user(void) {
       rgb_matrix_set_color_all(0, 0, 0);
     break;
   }
+  return false;
 }
 #ifdef AUDIO_ENABLE
     /*
@@ -373,6 +379,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //       set_single_persistent_default_layer(_QWERTZ);
     //       return false;
     // }
+        case DO_RESET:  // Reset button with LED indication
+            if (record->event.pressed) {
+                // rgblight_set_effect_range(0, 9);
+                // rgblight_sethsv_noeeprom(HSV_RED);
+                // rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                // rgblight_blink_layer(11, 5000);
+                reset_keyboard();
+            }
+            break;
     case PLY_IMP:
 		if (record->event.pressed) {
 			PLAY_SONG(music_impr);
@@ -468,7 +483,7 @@ bool music_mask_user(uint16_t keycode) {
 }
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 

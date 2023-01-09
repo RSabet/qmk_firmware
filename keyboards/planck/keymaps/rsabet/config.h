@@ -14,10 +14,17 @@
 
 
 #endif
+// caps word
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define MIDI_BASIC
 
 #define ENCODER_RESOLUTION 4
+/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
+ * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
+ */
+#define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
   Set any config.h overrides for your specific keymap here.
@@ -32,6 +39,7 @@
 #define RGB_MATRIX_STARTUP_VAL 200
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
+// #define RGBLIGHT_LAYERS
 
 #ifdef RGB_MATRIX_ENABLE
     // #undef ENABLE_RGB_MATRIX_ALPHAS_MODS                // Static dual hue, speed is hue for secondary hue
